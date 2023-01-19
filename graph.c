@@ -236,6 +236,7 @@ void remove_edge(int src, int dest, struct Graph *graph) {
                 this_edge->next = NULL;
                 free(next_next_edge);
             }
+            //free malloc
             free(next_edge);
             graph->edges_num--;
             return;
@@ -271,7 +272,7 @@ void init_graph(struct Graph *graph, char *curr_char)
     }
 }
 
-
+//printing function
 void print_graph(struct Graph *graph) //for self debug
 {
     struct Edge *curr_edge = graph->head_edge;
@@ -298,13 +299,15 @@ void print_graph(struct Graph *graph) //for self debug
 void delete_graph(struct Graph *graph)
 {
     struct Node* node = graph->head_node;
-    // struct Edge* edge = graph.head_edge;
+
     while (node != NULL)
     {
         remove_node(node->key, graph);
         node = graph->head_node;
     }
 }
+
+//shortest path function
 int shortest_path(int src, int dest, struct Graph *graph)
 {
     int size = graph->nodes_num;
@@ -405,7 +408,7 @@ void all_permutations(int *cities, int counter, int max_size, struct Graph *grap
         }
     }
 }
-
+//the salesman problem (up to 6 nodes in test)
 int TSP(struct Graph *graph, char *curr_char)
 {
     int i, to_add, size;
@@ -432,12 +435,14 @@ void free_graph(struct Graph *graph)
     {
         struct Node *free_node = ptr_node;
         ptr_node = ptr_node->next;
+        //for malloc
         free(free_node);
     }
     while (ptr_edge != NULL)
     {
         struct Edge *free_edge = ptr_edge;
         ptr_edge = ptr_edge->next;
+        //for malloc
         free(free_edge);
     }
 }
